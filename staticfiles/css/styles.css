@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+body{
+    background-image: url('extended_image.png');
+}
+header{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content:right;
+    align-items: center;
+    position: relative;
+    z-index: 99;
+    background-color: #37371f;
+
+}
+
+#chk1{
+    display: none;
+}
+
+i{
+    color: #fff;
+    cursor: pointer;
+}
+
+header .logo{
+    flex: 1;
+    color: #fff;
+    margin-left: 50px;
+    text-transform: uppercase;
+}
+
+header .h1{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+header .search-box{
+    flex: 1;
+    position: relative;
+    margin-left: 50px;
+}
+
+header .search-box input{
+    width: 100%;
+    padding: 10px 40px 10px 5px;
+    border: none;
+    outline: none;
+    background: #f2f2f2;
+    border-radius: 30px;
+    color: gray;
+    font-size: 16px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 40px;
+}
+
+.search-box button{
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: scale(0.8);
+    background: #90be6d;
+
+}
+
+header ul{
+    flex:2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+header ul li{
+    list-style: none;
+}
+
+header ul li a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 15px;
+}
+
+header ul li a:hover{
+    border-bottom: 2px solid green;
+}
+
+header .menu{
+    font-size: 2.5em;
+    display: none;
+}
+
+.logo_container{
+    height: 100%;
+    display: table;
+    float: left;
+}
+
+.slide{
+    width: 300px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #c9e3ac;
+    background-size: cover;
+    position: absolute;
+    animation: slide 10s infinite;
+    transform: translateX(-300px);
+}
+
+.slide ul li
+{
+    list-style: none;
+}
+
+.slide ul li a{
+    color: #37371f;
+    text-decoration: none;
+    font-size: 1.5em;
+    padding: 5px 0;
+    display: block;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: 0.2s ease out;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.slide ul li a:hover{
+    color: #90be6d;
+}
+
+.slide h2{
+    font-size: 1.5em;
+    font-weight: 800;
+    text-align: right;
+    padding: 20px 0;
+    padding-right: 90px;
+    pointer-events: none;
+}
+
+.toggle {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 35px;
+    left: 15px;
+    z-index: 100; /* Ensure it is above other elements */
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.toggle .common {
+    position: absolute;
+    height: 2px;
+    width: 20px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: 0.3s ease;
+}
+
+.toggle .top_line {
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .middle_line {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle .bottom_line {
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+label input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+    appearance: none;
+}
+
+label input:checked ~ .toggle .top_line{
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+}
+
+label input:checked ~ .toggle .bottom_line{
+    left: 2px;
+    top: 14px;
+    width: 25px;
+    transform: rotate(-45deg);
+}
+
+label input:checked ~ .toggle .middle_line{
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+label input:checked ~ .slide{
+    transform: translateX(0);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.box{
+    width: 60%;
+    height: 500px;
+    text-align: center;
+    color: white;
+    background-color: darkolivegreen;
+    position: absolute;
+    right: 20px;
+    top: 120px;
+    padding-top: 20px;
+}

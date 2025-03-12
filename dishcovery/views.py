@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hey there Elite Group Members (4A)!")
+    return render(request, 'dishcovery_project/base.html')

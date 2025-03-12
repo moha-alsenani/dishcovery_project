@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>base</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </title>
+</head>
+
+<body>
+    <header>
+        <input type="checkbox" name="" id="chk1">
+        <div class="logo"><h1>Dishcovery</h1></div>
+        <div class="search-box">
+            <form action="">
+                <input type="text" name="" id="search" placeholder="Search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <ul>
+            <li><a href="#">Login</a></li>
+        </ul>
+        <div class="menu">
+            <label for="chk1">
+                <i class="fas fa-bars"></i>
+            </label>
+        </div>
+    </header>
+    <label>
+        <input type="checkbox">
+        <div class="toggle">
+            <span class="top_line common"></span>
+            <span class="middle_line common"></span>
+            <span class="bottom_line common"></span>
+        </div>
+        
+        <div class="slide">
+            <h2>CUISINES</h2>
+            <ul>
+                <li><a href="#">Asian</a></li>
+                <li><a href="#">American</a></li>
+                <li><a href="#">African</a></li>
+                <li><a href="#">Europian</a></li>
+                <li><a href="#">Indian</a></li>
+                <li><a href="#">Latin American</a></li>
+                <li><a href="#">Middle East</a></li>
+                <li><a href="#">Others</a></li>
+            </ul>
+        </div>
+    </label>
+
+    <div class="box">
+        <p><h2>Trending</p>
+    </div>
+    
+    <footer>
+        <div class="row">
+            <p> hello </p>
+    </footer>
+</body>
+
+</html>
