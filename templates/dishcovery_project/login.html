@@ -1,0 +1,39 @@
+{% extends 'dishcovery_project/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block body_block %}
+<div class="login-box">
+    <form action="">
+        <h2>Login</h2>
+        <div class="input-box">
+            <input type="text" placeholder="Username" required>
+            <i class="fa fa-user"></i>
+        </div>
+        <div class="input-box">
+            <input type="password" placeholder="password" required>
+            <i class="fa fa-lock"></i>
+        </div>
+
+        <div class="forgot">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+
+        <div class="register-link">
+            <p>Don't have an account? <a href="#">Register</a></p>
+        </div>
+</div>
+
+
+
+<footer>
+    <div class="row">
+        <p>hello</p>
+    </div>
+</footer>
+{% endblock %}

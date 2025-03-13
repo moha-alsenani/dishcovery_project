@@ -1,20 +1,22 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 
-<html>
+<html lang="en">
 
-<head lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>base</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_block %} Dishcovery {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    </title>
 </head>
 
 <body>
     <header>
         <input type="checkbox" name="" id="chk1">
-        <div class="logo"><h1>Dishcovery</h1></div>
+        <div class="logo">
+            <h1><a href="{% url 'dishcovery:home' %}">Dishcovery</h1>
+        </div>
         <div class="search-box">
             <form action="">
                 <input type="text" name="" id="search" placeholder="Search">
@@ -22,7 +24,7 @@
             </form>
         </div>
         <ul>
-            <li><a href="#">Login</a></li>
+            <li><a href="{% url 'dishcovery:login' %}">Login</a></li>
         </ul>
         <div class="menu">
             <label for="chk1">
@@ -30,6 +32,7 @@
             </label>
         </div>
     </header>
+
     <label>
         <input type="checkbox">
         <div class="toggle">
@@ -37,14 +40,14 @@
             <span class="middle_line common"></span>
             <span class="bottom_line common"></span>
         </div>
-        
+
         <div class="slide">
             <h2>CUISINES</h2>
             <ul>
                 <li><a href="#">Asian</a></li>
                 <li><a href="#">American</a></li>
                 <li><a href="#">African</a></li>
-                <li><a href="#">Europian</a></li>
+                <li><a href="#">European</a></li>
                 <li><a href="#">Indian</a></li>
                 <li><a href="#">Latin American</a></li>
                 <li><a href="#">Middle East</a></li>
@@ -53,13 +56,14 @@
         </div>
     </label>
 
-    <div class="box">
-        <p><h2>Trending</p>
-    </div>
-    
+    <!-- Main content block where child templates insert content -->
+    {% block body_block %}
+    {% endblock %}
+
     <footer>
         <div class="row">
-            <p> hello </p>
+            <p>hello</p>
+        </div>
     </footer>
 </body>
 
