@@ -16,6 +16,8 @@
         <input type="checkbox" name="" id="chk1">
         <div class="logo">
             <h1><a href="{% url 'dishcovery:home' %}">Dishcovery</h1>
+            <li>Welcome, {{ user.username }}</li>
+
         </div>
         <div class="search-box">
             <form action="">
@@ -24,7 +26,16 @@
             </form>
         </div>
         <ul>
+            {% if user.is_authenticated %}
+            <!-- Show these links when the user is logged in -->
+            <li><a href="{% url 'dishcovery:profile_page' %}">My Profile</a></li>
+            <li><a href="{% url 'dishcovery:logout' %}">Logout</a></li>
+            {% else %}
+            <!-- Show these links when the user is NOT logged in -->
             <li><a href="{% url 'dishcovery:login' %}">Login</a></li>
+            {% endif %}
+            <!-- Always show these links -->
+            <li><a href="{% url 'dishcovery:home' %}">Home</a></li>
         </ul>
         <div class="menu">
             <label for="chk1">
@@ -44,16 +55,14 @@
         <div class="slide">
             <h2>CUISINES</h2>
             <ul>
-                <li><a href="#">Asian</a></li>
-                <li><a href="#">American</a></li>
-                <li><a href="#">African</a></li>
-                <li><a href="#">European</a></li>
-                <li><a href="#">Indian</a></li>
-                <li><a href="#">Latin American</a></li>
-                <li><a href="#">Middle East</a></li>
-                <li><a href="#">Others</a></li>
+                {% for cuisine in cuisines %}
+                <li><a href="{% url 'dishcovery:cuisine_recipes' cuisine.id %}">{{ cuisine.name }}</a></li>
+                {% empty %}
+                <li>No cuisines available</li>
+                {% endfor %}
             </ul>
         </div>
+
     </label>
 
     <!-- Main content block where child templates insert content -->

@@ -1,0 +1,11 @@
+{% extends 'dishcovery_project/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Logout
+{% endblock %}
+
+{% block body_block %}
+<h1>Bye! <strong>Thank you for spending time with us!</strong></h1>
+<a href="{% url 'dishcovery:home' %}">Return to the homepage here</a><br />
+{% endblock %}

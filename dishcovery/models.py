@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='media/profile_images', blank=True)
     bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -28,7 +28,7 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine, on_delete=models.SET_NULL, null=True)  
     meal_type = models.CharField(max_length=50, choices=[('Breakfast', 'Breakfast'), ('Lunch', 'Lunch'), ('Dinner', 'Dinner'), ('Dessert', 'Dessert')])
     diet = models.CharField(max_length=50, blank=True, null=True, choices=[('Vegan', 'Vegan'), ('Keto', 'Keto'), ('Vegetarian', 'Vegetarian'), ('None', 'None')])
-    image = models.ImageField(upload_to='recipe_images', blank=True, null=True)
+    image = models.ImageField(upload_to='media/recipe_images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

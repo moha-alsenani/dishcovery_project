@@ -1,0 +1,81 @@
+{% extends 'dishcovery_project/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Profile - {{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>{{ user.username }}'s Profile</h1>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-info">
+            <h2>About Me</h2>
+            <p>Hi, Im {{ user.username }}. {{ user.userprofile.bio|default:"Welcome to my profile!" }}</p>
+        </div>
+
+        <div class="profile-contact">
+            <h2>My Contact Info</h2>
+            <p>Email: {{ user.email }}</p>
+        </div>
+
+        <div class="profile-recipes">
+            <h2>My Recipes</h2>
+            {% if user_recipes %}
+            <ul>
+                {% for recipe in user_recipes %}
+                <li>
+                    <a href="{% url 'dishcovery:recipe_details' recipe.id %}">
+                        <strong>{{ recipe.title }}</strong> - {{ recipe.difficulty }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You haven't added any recipes yet.</p>
+        </div>
+
+        {% endif %}
+        <h3>Add a New Recipe</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Recipe</button>
+        </form>
+    </div>
+
+</div>
+</div>
+
+<style>
+    .profile-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header h1 {
+        text-align: center;
+    }
+
+    .profile-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile-info,
+    .profile-contact,
+    .profile-recipes {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}

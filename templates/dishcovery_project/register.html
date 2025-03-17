@@ -1,0 +1,24 @@
+{% extends 'dishcovery_project/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Register
+{% endblock %}
+
+{% block body_block %}
+<h1>Register for Dishcovery</h1>
+{% if registered %}
+Welcome to Dishcovery &amp; <strong>thank you for registering!</strong>
+<a href="{% url 'dishcovery:home' %}">Return to the homepage here</a><br />
+{% else %}
+HEY <strong>register here!</strong><br />
+<form id="user_form" method="post" action="{% url 'dishcovery:register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Display each form -->
+    {{ user_form.as_p }}
+
+    <!-- Provide a button to click to submit the form. -->
+    <input type="submit" name="submit" value="Register" />
+</form>
+{% endif %}
+{% endblock %}
