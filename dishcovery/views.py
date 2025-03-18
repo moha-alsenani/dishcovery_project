@@ -10,8 +10,9 @@ from django.db.models import Avg
 # Create your views here.
 
 def home(request):
-    cuisines = Cuisine.objects.all()
-    return render(request, 'dishcovery_project/home.html')
+    trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:6]  # Get top 6 recipes by rating
+    return render(request, 'dishcovery_project/home.html', {'trending_recipes': trending_recipes})
+
 
 def user_login(request):
     if request.method == 'POST':
