@@ -15,7 +15,6 @@
     <p>No image available for this recipe.</p>
     {% endif %}
 
-
     <h3>Difficulty: {{ recipe.difficulty }}</h3>
     <h3>Meal Type: {{ recipe.meal_type }}</h3>
     <h3>Diet: {{ recipe.diet }}</h3>
@@ -30,6 +29,51 @@
         <h2>Instructions</h2>
         <p>{{ recipe.instructions }}</p>
     </div>
+
+    <!-- Comments Section -->
+    <div class="recipe-section">
+        <h2>Comments</h2>
+
+        {% for comment in comments %}
+        <div class="comment">
+            <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"F d, Y H:i" }}</p>
+            <p>{{ comment.text }}</p>
+        </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Comment Form -->
+    {% if user.is_authenticated %}
+    <div class="recipe-section">
+        <h3>Add a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-warning">Submit Comment</button>
+        </form>
+    </div>
+    {% else %}
+    <p><a href="{% url 'dishcovery:login' %}">Log in</a> to post a comment.</p>
+    {% endif %}
+
+    <!-- Ratings Section -->
+    <div class="recipe-section">
+        <h2>Average Rating: {{ average_rating }}/10</h2>
+
+        {% if user.is_authenticated %}
+        <h3>Rate this Recipe</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ rating_form.as_p }}
+            <button type="submit" name="rating" class="btn btn-warning">Submit Rating</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'dishcovery:login' %}">Log in</a> to rate this recipe.</p>
+        {% endif %}
+    </div>
+
 </div>
 
 <style>
@@ -56,14 +100,12 @@
         border-radius: 8px;
     }
 
-    .back-link {
-        display: inline-block;
-        margin-top: 20px;
+    .comment {
         padding: 10px;
-        background: #333;
-        color: white;
-        text-decoration: none;
+        background: #fff5e1;
+        margin-top: 10px;
         border-radius: 5px;
     }
 </style>
+
 {% endblock %}
