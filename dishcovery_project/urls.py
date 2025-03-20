@@ -18,8 +18,11 @@ from django.urls import path
 from django.urls import include
 from dishcovery import views
 
+from django.conf import settings # --------> this
+from django.conf.urls.static import static # --------> this
+
 urlpatterns = [
     path('', views.home, name = 'home'),
     path('dishcovery/', include('dishcovery.urls')),
     path('admin/', admin.site.urls),
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

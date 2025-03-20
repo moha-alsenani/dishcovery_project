@@ -13,9 +13,10 @@
 
 <body>
     <header>
+                <div class="toggle"><i class="fa fa-bars"></i></div>
         <input type="checkbox" name="" id="chk1">
         <div class="logo">
-            <h1><a href="{% url 'dishcovery:home' %}">Dishcovery</h1>
+            <h1><a href="{% url 'dishcovery:home' %}" style="text-decoration: none">Dishcovery</h1>
             <li>Welcome, {{ user.username }}</li>
 
         </div>
@@ -34,8 +35,6 @@
             <!-- Show these links when the user is NOT logged in -->
             <li><a href="{% url 'dishcovery:login' %}">Login</a></li>
             {% endif %}
-            <!-- Always show these links -->
-            <li><a href="{% url 'dishcovery:home' %}">Home</a></li>
         </ul>
         <div class="menu">
             <label for="chk1">
@@ -45,14 +44,10 @@
     </header>
 
     <label>
-        <input type="checkbox">
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
 
-        <div class="slide">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
             <h2>CUISINES</h2>
             <ul>
                 {% for cuisine in cuisines %}
@@ -74,6 +69,7 @@
             <p>hello</p>
         </div>
     </footer>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>

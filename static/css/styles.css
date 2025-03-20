@@ -36,14 +36,20 @@ i{
 header .logo{
     flex: 1;
     color: #fff;
-    margin-left: 50px;
+    margin-left: 100px;
     text-transform: uppercase;
 }
 
-header .h1{
-    font-size: 1.5em;
-    font-weight: 600;
+header .logo a {
+    color: white; /* Change to desired color */
+    text-decoration: none;
 }
+header .logo a:visited {
+    color: white; /* Ensures the visited color doesn't change */
+}
+header .logo:hover { text-decoration: none; color:blue; }
+header .logo:focus { text-decoration: none; color:yellow; }
+header .logo:hover, a:active { text-decoration: none; color:black }
 
 header .search-box{
     flex: 1;
@@ -63,6 +69,7 @@ header .search-box input{
     text-align: center;
     padding-left: 5px;
     padding-right: 40px;
+    z-index: 1500;
 }
 
 .search-box button{
@@ -112,24 +119,33 @@ header .menu{
     float: left;
 }
 
-.slide{
+.sidebar {
     width: 300px;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+    height: 100vh;
     background-color: #c9e3ac;
-    background-size: cover;
-    position: absolute;
-    animation: slide 10s infinite;
-    transform: translateX(-300px);
+    position: fixed;
+    top: 0;
+    left: -300px; /* Sidebar starts hidden */
+    transition: left 0.3s ease-in-out;
+    padding-top: 100px;
 }
 
-.slide ul li
+.sidebar-active {
+    left: 0 ; /* Make sure it appears when active */
+}
+
+
+label input:checked ~ .sidebar {
+    transform: translateX(0);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar ul li
 {
     list-style: none;
 }
 
-.slide ul li a{
+.sidebar ul li a{
     color: #37371f;
     text-decoration: none;
     font-size: 1.5em;
@@ -142,87 +158,38 @@ header .menu{
     padding-left: 20px;
 }
 
-.slide ul li a:hover{
+.sidebar ul li a:hover{
     color: #90be6d;
 }
 
-.slide h2{
+.sidebar h2{
     font-size: 1.5em;
     font-weight: 800;
-    text-align: right;
+    text-align: center;
     padding: 20px 0;
-    padding-right: 90px;
     pointer-events: none;
 }
 
 .toggle {
-    position: absolute;
-    height: 30px;
-    width: 30px;
-    top: 35px;
-    left: 15px;
-    z-index: 100; /* Ensure it is above other elements */
+    background:rgba(0, 0, 0, 0.5);
+    padding:10px 15px;
     cursor: pointer;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.toggle .common {
-    position: absolute;
-    height: 2px;
-    width: 20px;
-    background-color: #333;
-    border-radius: 2px;
-    transition: 0.3s ease;
-}
-
-.toggle .top_line {
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.toggle .middle_line {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.toggle .bottom_line {
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.toggle i{
+    font-size: 24px;
+    width: 16px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: font-size 0.2s ease-in-out;
 }
 
 label input[type="checkbox"] {
     display: none;
     visibility: hidden;
     appearance: none;
-}
-
-label input:checked ~ .toggle .top_line{
-    left: 2px;
-    top: 14px;
-    width: 25px;
-    transform: rotate(45deg);
-}
-
-label input:checked ~ .toggle .bottom_line{
-    left: 2px;
-    top: 14px;
-    width: 25px;
-    transform: rotate(-45deg);
-}
-
-label input:checked ~ .toggle .middle_line{
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-label input:checked ~ .slide{
-    transform: translateX(0);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 footer {
@@ -232,17 +199,18 @@ footer {
 }
 
 .trending-box {
-    width: 60%;
+    width: 70%;
     height: 500px;
     text-align: center;
     color: white;
     background-color: darkolivegreen;
     position: absolute;
-    right: 20px;
+    right: 60px;
     top: 160px;
     padding: 20px;
     margin: 10px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .login-box {
@@ -335,4 +303,134 @@ footer {
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+.recipe-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.recipe-section {
+    margin-top: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+}
+
+.comment {
+    padding: 10px;
+    background: #fff5e1;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.profile-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header h1 {
+    text-align: center;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-info,
+.profile-contact,
+.profile-recipes {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.recipes-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.recipe-box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.recipe-box:hover {
+    transform: scale(1.05);
+}
+
+.recipe-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.recipe-box h2 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.recipe-box p {
+    font-size: 14px;
+    color: #666;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
 }
