@@ -6,40 +6,32 @@ Home
 {% endblock %}
 
 {% block body_block %}
-<div class="container mt-4">
-    <div class="trending-box">
-        <h2>Trending Recipes</h2>
-        <div class="row">
-            {% for recipe in trending_recipes %}
-            <div class="col-md-4">
-                <div class="card">
-                    {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
-                    {% else %}
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="No Image">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{% url 'dishcovery:recipe_details' recipe.id %}">{{ recipe.title }}</a>
-                        </h5>
-                        <p><strong>Rating:</strong> {{ recipe.avg_rating|floatformat:1 }}/10</p>
+<div class="main-content">
+    <div class="container mt-4">
+        <div class="trending-box">
+            <h2>Trending Recipes</h2>
+            <div class="row">
+                {% for recipe in trending_recipes %}
+                <div class="col-md-4">
+                    <div class="card">
+                        {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/300" class="card-img-top" alt="No Image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'dishcovery:recipe_details' recipe.id %}">{{ recipe.title }}</a>
+                            </h5>
+                            <p><strong>Rating:</strong> {{ recipe.avg_rating|floatformat:1 }}/10</p>
+                        </div>
                     </div>
                 </div>
+                {% empty %}
+                <p>No trending recipes yet.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p>No trending recipes yet.</p>
-            {% endfor %}
         </div>
     </div>
 </div>
-
-<footer>
-    <div class="row">
-        <p> hello </p>
-    </div>
-</footer>
-
-<style>
-
-</style>
 {% endblock %}

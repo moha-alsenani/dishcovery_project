@@ -12,16 +12,18 @@ Profile - {{ user.username }}
     </div>
 
     <div class="profile-content">
-        <div class="profile-info">
-            <h2>About Me</h2>
-            <p>Hi, Im {{ user.username }}. {{ user.userprofile.bio|default:"Welcome to my profile!" }}</p>
+        <div class="profile-row">
+            <div class="profile-info">
+                <h2>About Me</h2>
+                <p>Hi, I'm {{ user.username }}. {{ user.userprofile.bio|default:"Welcome to my profile!" }}</p>
+            </div>
+    
+            <div class="profile-contact">
+                <h2>Contact Info</h2>
+                <p>Email: {{ user.email }}</p>
+            </div>
         </div>
-
-        <div class="profile-contact">
-            <h2>My Contact Info</h2>
-            <p>Email: {{ user.email }}</p>
-        </div>
-
+    
         <div class="profile-recipes">
             <h2>My Recipes</h2>
             {% if user_recipes %}
@@ -36,14 +38,16 @@ Profile - {{ user.username }}
             </ul>
             {% else %}
             <p>You haven't added any recipes yet.</p>
+            {% endif %}
         </div>
-
-        {% endif %}
+    </div>
         <h3>Add a New Recipe</h3>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Recipe</button>
+            <div class="custom-form">
+                {{ form.as_p }}
+                <button type="submit" class="submitbtn">Add Recipe</button>
+            </div>
         </form>
     </div>
 

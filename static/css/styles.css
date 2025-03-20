@@ -9,19 +9,35 @@
     text-decoration: none;
 }
 
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 body{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     background-image: url('/static/images/extended_image.png');
 }
+
 header{
     width: 100%;
-    height: 100px;
+    min-height: 100px;
     display: flex;
     justify-content:right;
     align-items: center;
     position: relative;
     z-index: 99;
     background-color: #37371f;
+}
 
+.main-content {
+    flex: 1; /* This pushes the footer down */
+    min-height: calc(100vh - 200px); /* Ensures it always takes up space */
+    display: flex;
+    flex-direction: column;
 }
 
 #chk1{
@@ -113,12 +129,6 @@ header .menu{
     display: none;
 }
 
-.logo_container{
-    height: 100%;
-    display: table;
-    float: left;
-}
-
 .sidebar {
     width: 300px;
     height: 100vh;
@@ -171,15 +181,23 @@ label input:checked ~ .sidebar {
 }
 
 .toggle {
-    background:rgba(0, 0, 0, 0.5);
-    padding:10px 15px;
+    background: rgba(255, 255, 255, 0.15); /* Default dimmed */
+    padding: 10px 15px;
     cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.toggle-active {
+    background: rgba(255, 255, 255, 0.4); /* Brighter when sidebar is open */
 }
 
 .toggle i{
     font-size: 24px;
     width: 16px;
     height: 24px;
+    left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,7 +217,7 @@ footer {
 }
 
 .trending-box {
-    width: 70%;
+    width: 75%;
     height: 500px;
     text-align: center;
     color: white;
@@ -312,6 +330,26 @@ footer {
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.recipe-container ul.inline-list {
+    display: flex; /* Makes items appear in a row */
+    justify-content: space-between; /* Spreads items evenly */
+    padding: 0;
+    list-style: none; /* Removes bullets */
+    gap: 20px; /* Adds spacing between items */
+}
+
+.recipe-container ul {
+    margin-top: 10px;
+    display: flex; /* Makes items appear in a row */
+    justify-content: space-around; /* Spreads items evenly */
+    padding: 0;
+    list-style: none; /* Removes bullets */
+    gap: 20px; /* Adds spacing between items */
+    font-weight: bold;
 }
 
 .recipe-image {
@@ -338,6 +376,8 @@ footer {
 .profile-container {
     width: 80%;
     margin: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
     padding: 20px;
     background-color: #f8f8f8;
     border-radius: 10px;
@@ -354,12 +394,56 @@ footer {
     gap: 20px;
 }
 
-.profile-info,
+/* .profile-info,
 .profile-contact,
 .profile-recipes {
     background: white;
     padding: 15px;
     border-radius: 8px;
+} */
+
+.profile-header h1{
+    margin-bottom: 20px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.profile-info, .profile-contact {
+    flex: 1; /* Both take equal width */
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-recipes {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px; /* Makes inputs rounded */
+    border: 2px solid #ddd;
+    background-color: #f8f8f8;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #90be6d; /* Highlight when selected */
+    background-color: white;
 }
 
 .card {
@@ -433,4 +517,129 @@ footer {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+}
+
+footer {
+    width: 100%;
+    background: #37371f;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-container ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-container ul li {
+    display:block;
+}
+
+.footer-container ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-container ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Style the entire form */
+.custom-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Style the form fields */
+.custom-form p {
+    display:grid;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Make Ingredients & Instructions Side-by-Side */
+.custom-form p:has(textarea) {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.custom-form p:has(textarea) textarea {
+    flex: 1; /* Make both equal width */
+    min-height: 150px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    background-color: #f8f8f8;
+    outline: none;
+    transition: 0.3s;
+}
+
+.custom-form p:has(textarea) textarea:focus {
+    border-color: #90be6d;
+    background-color: white;
+}
+
+/* Style Dropdown Fields (Difficulty, Cuisine, Meal Type, Diet) */
+.custom-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background-color: #f8f8f8;
+    transition: 0.3s;
+}
+
+.custom-form select:focus {
+    border-color: #90be6d;
+    background-color: white;
+}
+
+/* Display Choice Inputs in a Row */
+.custom-form p:has(select) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* Ensure each select takes equal space */
+.custom-form p:has(select) select {
+    flex: 1;
+    min-width: 200px;
+}
+
+.submitbtn {
+    background-color: #90be6d; /* Green color */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px; /* Rounded edges */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: 50%;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+}
+
+.custom-form button:hover {
+    background-color: #6b8e23; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+.custom-form button:active {
+    background-color: #5a7d1f; /* Even darker green when clicked */
+    transform: scale(0.95); /* Slight shrink effect */
 }

@@ -15,10 +15,12 @@
     <p>No image available for this recipe.</p>
     {% endif %}
 
-    <h3>Difficulty: {{ recipe.difficulty }}</h3>
-    <h3>Meal Type: {{ recipe.meal_type }}</h3>
-    <h3>Diet: {{ recipe.diet }}</h3>
-    <h3>Cuisine: {{ recipe.cuisine }}</h3>
+    <ul>
+    <li>Difficulty: {{ recipe.difficulty }}</li>
+    <li>Meal Type: {{ recipe.meal_type }}</li>
+    <li>Diet: {{ recipe.diet }}</li>
+    <li>Cuisine: {{ recipe.cuisine }}</li>
+    </ul>
 
     <div class="recipe-section">
         <h2>Ingredients</h2>
@@ -51,7 +53,7 @@
         <form method="post">
             {% csrf_token %}
             {{ comment_form.as_p }}
-            <button type="submit" name="comment" class="btn btn-warning">Submit Comment</button>
+            <button type="submit" name="comment" class="submitbtn">Submit Comment</button>
         </form>
     </div>
     {% else %}
@@ -67,8 +69,10 @@
         <h3>Rate this Recipe</h3>
         <form method="post">
             {% csrf_token %}
+            <div class="custom-form"
             {{ rating_form.as_p }}
-            <button type="submit" name="rating" class="btn btn-warning">Submit Rating</button>
+        </div>
+            <button type="submit" name="rating" class="submitbtn">Submit Rating</button>
         </form>
         {% else %}
         <p><a href="{% url 'dishcovery:login' %}">Log in</a> to rate this recipe.</p>
