@@ -36,7 +36,7 @@ class Recipe(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who made the comment
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='comments')  # Recipe being commented on
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='comments')  # Recipe being commented on
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

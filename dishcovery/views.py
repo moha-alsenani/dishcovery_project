@@ -84,35 +84,23 @@ def profile_page(request):
 
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    comments = recipe.comments.all().order_by('-created_at')  # Fetch all comments
-    average_rating = recipe.ratings.aggregate(Avg('score'))['score__avg']  # Calculate average rating
+    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')  
+    average_rating = recipe.ratings.aggregate(Avg('score'))['score__avg']
     rating_form = RatingForm()
     comment_form = CommentForm()
 
     if request.method == "POST":
-        if 'rating' in request.POST:  # If rating form is submitted
+        if 'comment' in request.POST:
             if request.user.is_authenticated:
-                rating_form = RatingForm(request.POST)
-                if rating_form.is_valid():
-                    rating, created = Rating.objects.update_or_create(
-                        user=request.user, recipe=recipe,
-                        defaults={'score': rating_form.cleaned_data['score']}
-                    )
-                    return redirect('dishcovery:recipe_details', recipe_id=recipe.id)
-            else:
-                return HttpResponse("You must be logged in to rate.")
-
-        elif 'comment' in request.POST:  # If comment form is submitted
-            if request.user.is_authenticated:
-                comment_form = CommentForm(request.POST)
+                comment_form = CommentForm(request.POST)                
                 if comment_form.is_valid():
+
                     comment = comment_form.save(commit=False)
                     comment.recipe = recipe
                     comment.user = request.user
                     comment.save()
+                    
                     return redirect('dishcovery:recipe_details', recipe_id=recipe.id)
-            else:
-                return HttpResponse("You must be logged in to comment.")
 
     context = {
         'recipe': recipe,
@@ -122,6 +110,7 @@ def recipe_details(request, recipe_id):
         'average_rating': round(average_rating, 1) if average_rating else "No ratings yet"
     }
     return render(request, 'dishcovery_project/recipe_details.html', context)
+
 
 
 

@@ -51,12 +51,13 @@
         <form method="post">
             {% csrf_token %}
             {{ comment_form.as_p }}
-            <button type="submit" class="btn btn-warning">Submit Comment</button>
+            <button type="submit" name="comment" class="btn btn-warning">Submit Comment</button>
         </form>
     </div>
     {% else %}
     <p><a href="{% url 'dishcovery:login' %}">Log in</a> to post a comment.</p>
     {% endif %}
+
 
     <!-- Ratings Section -->
     <div class="recipe-section">
