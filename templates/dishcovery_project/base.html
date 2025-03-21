@@ -13,7 +13,7 @@
 
 <body>
     <header>
-                <div class="toggle"><i class="fa fa-bars"></i></div>
+        <div class="toggle"><i class="fa fa-bars"></i></div>
         <input type="checkbox" name="" id="chk1">
         <div class="logo">
             <h1><a href="{% url 'dishcovery:home' %}" style="text-decoration: none">Dishcovery</h1>
@@ -22,8 +22,8 @@
         </div>
         <div class="search-box">
             <form action="">
-                <input type="text" name="" id="search" placeholder="Search">
-                <button type="submit"><i class="fa fa-search"></i></button>
+                <input type="text" id="search-box" placeholder="Search recipes..." autocomplete="off">
+                <ul id="search-results"></ul>
             </form>
         </div>
         <ul>

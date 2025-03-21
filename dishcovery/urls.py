@@ -4,9 +4,6 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from dishcovery_project import settings
 
-from django.conf import settings # --------> this
-from django.conf.urls.static import static # --------> this
-
 app_name = 'dishcovery'
 
 urlpatterns = [
@@ -16,7 +13,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='dishcovery:home'), name='logout'),
     path('profile_page/', views.profile_page, name='profile_page'),
     path('recipe/<int:recipe_id>/', views.recipe_details, name='recipe_details'),
-    path('cuisine/<int:cuisine_id>/', views.cuisine_recipes, name='cuisine_recipes'), 
+    path('recipe/<int:recipe_id>/add_comment/', views.add_comment_ajax, name='add_comment_ajax'),
+    path('cuisine/<int:cuisine_id>/', views.cuisine_recipes, name='cuisine_recipes'),  
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

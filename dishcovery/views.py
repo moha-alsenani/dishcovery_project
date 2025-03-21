@@ -6,11 +6,13 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from dishcovery.models import Recipe, Cuisine, Comment, Rating
 from django.db.models import Avg
+from django.http import JsonResponse
+from django.utils.timezone import now
 
 # Create your views here.
 
 def home(request):
-    trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:6]  # Get top 6 recipes by rating
+    trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:3]  # Get top recipes by rating
     return render(request, 'dishcovery_project/home.html', {'trending_recipes': trending_recipes})
 
 
@@ -84,23 +86,37 @@ def profile_page(request):
 
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')  
-    average_rating = recipe.ratings.aggregate(Avg('score'))['score__avg']
+    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')
+    average_rating = Rating.objects.filter(recipe=recipe).aggregate(Avg('score'))['score__avg']
     rating_form = RatingForm()
     comment_form = CommentForm()
 
     if request.method == "POST":
-        if 'comment' in request.POST:
+        if 'rating' in request.POST:  # If rating form is submitted
             if request.user.is_authenticated:
-                comment_form = CommentForm(request.POST)                
-                if comment_form.is_valid():
+                rating_form = RatingForm(request.POST)
+                if rating_form.is_valid():
+                    Rating.objects.filter(user=request.user, recipe=recipe).delete()
+                    
+                    Rating.objects.create(
+                        user=request.user, recipe=recipe,
+                        score=rating_form.cleaned_data['score']
+                    )
+                    return redirect('dishcovery:recipe_details', recipe_id=recipe.id)
+            else:
+                return HttpResponse("You must be logged in to rate.")
 
+        elif 'comment' in request.POST:  # If comment form is submitted
+            if request.user.is_authenticated:
+                comment_form = CommentForm(request.POST)
+                if comment_form.is_valid():
                     comment = comment_form.save(commit=False)
                     comment.recipe = recipe
                     comment.user = request.user
                     comment.save()
-                    
                     return redirect('dishcovery:recipe_details', recipe_id=recipe.id)
+            else:
+                return HttpResponse("You must be logged in to comment.")
 
     context = {
         'recipe': recipe,
@@ -111,7 +127,35 @@ def recipe_details(request, recipe_id):
     }
     return render(request, 'dishcovery_project/recipe_details.html', context)
 
-
+# Commenting func with AJAX
+def add_comment_ajax(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'status': 'error', 'message': 'You must be logged in to comment.'}, status=401)
+    
+    if request.method == 'POST':
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        comment_form = CommentForm(request.POST)
+        
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.recipe = recipe
+            comment.user = request.user
+            comment.created_at = now()
+            comment.save()
+            
+            # Return the new comment data
+            return JsonResponse({
+                'status': 'success',
+                'comment': {
+                    'user': request.user.username,
+                    'text': comment.text,
+                    'created_at': comment.created_at.strftime("%B %d, %Y %H:%M")
+                }
+            })
+        else:
+            return JsonResponse({'status': 'error', 'errors': comment_form.errors}, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
 
 def cuisine_recipes(request, cuisine_id):
@@ -119,10 +163,4 @@ def cuisine_recipes(request, cuisine_id):
     recipes = Recipe.objects.filter(cuisine=cuisine)  # Get recipes for the selected cuisine
     
     return render(request, 'dishcovery_project/cuisine_recipes.html', {'cuisine': cuisine, 'recipes': recipes})
-
-
-
-
-
-
    

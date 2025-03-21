@@ -36,30 +36,32 @@
     <div class="recipe-section">
         <h2>Comments</h2>
 
-        {% for comment in comments %}
-        <div class="comment">
-            <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"F d, Y H:i" }}</p>
-            <p>{{ comment.text }}</p>
+        <div id="comments-container">
+            {% for comment in comments %}
+            <div class="comment">
+                <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"F d, Y H:i" }}</p>
+                <p>{{ comment.text }}</p>
+            </div>
+            {% empty %}
+            <p id="no-comments-message">No comments yet. Be the first to comment!</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p>No comments yet. Be the first to comment!</p>
-        {% endfor %}
     </div>
 
     <!-- Add Comment Form -->
     {% if user.is_authenticated %}
     <div class="recipe-section">
         <h3>Add a Comment</h3>
-        <form method="post">
+        <form id="ajax-comment-form">
             {% csrf_token %}
             {{ comment_form.as_p }}
             <button type="submit" name="comment" class="submitbtn">Submit Comment</button>
         </form>
+        <div id="comment-status"></div>
     </div>
     {% else %}
     <p><a href="{% url 'dishcovery:login' %}">Log in</a> to post a comment.</p>
     {% endif %}
-
 
     <!-- Ratings Section -->
     <div class="recipe-section">
@@ -80,5 +82,8 @@
     </div>
 
 </div>
+<script>
+    var addCommentURL = "{% url 'dishcovery:add_comment_ajax' recipe.id %}";
+</script>
 
 {% endblock %}
