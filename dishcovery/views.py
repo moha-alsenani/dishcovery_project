@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from dishcovery.forms import UserForm, UserProfileForm, RecipeForm, CommentForm, RatingForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
@@ -15,25 +15,20 @@ def home(request):
     trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:3]  # Get top recipes by rating
     return render(request, 'dishcovery_project/home.html', {'trending_recipes': trending_recipes})
 
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
 
-        if user:
-            if user.is_active:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            if user and user.is_active:
                 login(request, user)
-                return redirect(reverse('dishcovery:home'))
+                return JsonResponse({'success': True, 'redirect_url': '/dishcovery/'})
             else:
-                return HttpResponse("Your Dishcovery account is disabled.")
-        else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+                return JsonResponse({'success': False, 'error': 'Invalid username or password.'})
 
-    else:
-        return render(request, 'dishcovery_project/login.html')
+    return render(request, 'dishcovery_project/login.html')
     
 def register(request):
 
@@ -163,4 +158,15 @@ def cuisine_recipes(request, cuisine_id):
     recipes = Recipe.objects.filter(cuisine=cuisine)  # Get recipes for the selected cuisine
     
     return render(request, 'dishcovery_project/cuisine_recipes.html', {'cuisine': cuisine, 'recipes': recipes})
+
+def about(request):
+    return render(request,'dishcovery_project/about.html')
+
+def contact(request):
+    return render(request,'dishcovery_project/contact.html')
+
+def faq(request):
+    return render(request,'dishcovery_project/faq.html' )
+
+
    

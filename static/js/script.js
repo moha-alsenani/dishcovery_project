@@ -1,4 +1,5 @@
 //Side bar
+// For toggle bar
 document.addEventListener("DOMContentLoaded", function () {
     // Function for sidebar menu toggle
     let toggleButton = document.querySelector(".toggle");
@@ -92,6 +93,38 @@ document.addEventListener('DOMContentLoaded', function () {
                     commentStatus.textContent = 'Network error: Could not add comment';
                     commentStatus.className = 'alert alert-danger';
                 });
+        });
+    }
+});
+// Alert message if wrong username and password is entered.
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(loginForm);
+
+            fetch("/dishcovery/login/", {
+                method: "POST",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Login error:", error);
+                alert("Something went wrong. Please try again.");
+            });
         });
     }
 });

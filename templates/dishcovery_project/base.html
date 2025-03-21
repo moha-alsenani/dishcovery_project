@@ -14,16 +14,19 @@
 <body>
     <header>
         <div class="toggle"><i class="fa fa-bars"></i></div>
-        <input type="checkbox" name="" id="chk1">
         <div class="logo">
             <h1><a href="{% url 'dishcovery:home' %}" style="text-decoration: none">Dishcovery</h1>
+            {% if user.is_authenticated %}
             <li>Welcome, {{ user.username }}</li>
+            {% else %}
+            <li>Welcome</li>
+            {% endif %}
 
         </div>
         <div class="search-box">
-            <form action="">
-                <input type="text" id="search-box" placeholder="Search recipes..." autocomplete="off">
-                <ul id="search-results"></ul>
+            <form action="" method="GET">
+                <input type="text" name="query" id="search" placeholder="Search">
+                <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
         <ul>
@@ -43,9 +46,8 @@
         </div>
     </header>
 
+
     <label>
-
-
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>CUISINES</h2>
@@ -60,20 +62,24 @@
 
     </label>
 
-    <!-- Main content block where child templates insert content -->
+ <div class="main-container">
     {% block body_block %}
     {% endblock %}
+    </div>
 
     <footer>
         <div class="footer-container">
             <ul>
-                <li><a>About</a></li>
-                <li><a>Contact Us</a></li>
+                <li><a href="{% url 'dishcovery:about'%}">About</a></li>
+                <li><a href="{% url 'dishcovery:faq'%}">FAQ</a></li>
+                <li><a href="{% url 'dishcovery:contact'%}">Contact Us</a></li>
             </ul>
-            <p>&copy; 2025 Dishcovery. All rights reserved.</p>
+            <p> 2025 Dishcovery.</p>
         </div>
     </footer>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
+
+
 
 </html>

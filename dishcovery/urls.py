@@ -15,6 +15,10 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/', views.recipe_details, name='recipe_details'),
     path('recipe/<int:recipe_id>/add_comment/', views.add_comment_ajax, name='add_comment_ajax'),
     path('cuisine/<int:cuisine_id>/', views.cuisine_recipes, name='cuisine_recipes'),  
+    path('cuisine/<int:cuisine_id>/', views.cuisine_recipes, name='cuisine_recipes'), 
+    path('about/', views.about, name='about'),
+    path('faq/', views.faq, name='faq'),
+    path('contact/', views.contact, name='contact'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
