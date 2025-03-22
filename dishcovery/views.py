@@ -12,7 +12,7 @@ from django.utils.timezone import now
 # Create your views here.
 
 def home(request):
-    trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:3]  # Get top recipes by rating
+    trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:4]  # Get top recipes by rating
     return render(request, 'dishcovery_project/home.html', {'trending_recipes': trending_recipes})
 
 def user_login(request):

@@ -237,17 +237,23 @@ footer {
     padding: 0;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 100px;
 }
 
 .footer-container ul li {
     display: block;
+    margin-top: 0px;
 }
 
 .footer-container ul li a {
     color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 21px;
+}
+
+.footer-container p {
+    font-size: 14.5px;
+    margin-top: 13px;
 }
 
 .footer-container ul li a:hover {
@@ -301,6 +307,7 @@ footer {
 
 .recipe-card-body {
     padding: 10px;
+    color: #90be6d;
 }
 
 .recipe-card-title {
@@ -745,14 +752,14 @@ textarea:focus {
     /* Darker color for better visibility */
 }
 
-.contact-container {
-    width: 80%;
+.creator-container {
+    width: 85%;
     margin: auto;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 3%;
+    margin-top: 10%;
     margin-bottom: 3%;
     text-align: center;
 }
@@ -840,4 +847,56 @@ textarea:focus {
     margin-top: auto;
     margin-bottom: auto;
     padding-top: 60px;
+}
+
+/* Creator Cards Styling */
+.creator-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.creator-card {
+    width: 216px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.creator-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.creator-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #90be6d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+}
+
+.creator-icon i {
+    font-size: 40px;
+    color: white;
+}
+
+.creator-card h3 {
+    color: #37371f;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.creator-card p {
+    color: #666;
+    font-size: 14px;
 }
