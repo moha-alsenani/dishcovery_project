@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,23 +9,24 @@
     text-decoration: none;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     flex: 1;
     flex-direction: column;
     background-image: url('/static/images/extended_image.png');
 }
 
-header{
+header {
     width: 100%;
     min-height: 100px;
     display: flex;
-    justify-content:right;
+    justify-content: right;
     align-items: center;
     position: relative;
     z-index: 99;
@@ -34,12 +35,14 @@ header{
 
 .page-content {
     min-height: 100%;
-    padding-bottom: 120px; /* Same or slightly more than footer height */
+    padding-bottom: 120px;
+    /* Same or slightly more than footer height */
     box-sizing: border-box;
 }
 
 .main-container {
-    min-height: calc(100vh - 100px); /* 100px = footer height */
+    min-height: calc(100vh - 100px);
+    /* 100px = footer height */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,12 +56,12 @@ header{
     flex-direction: column;
 }
 
-i{
+i {
     color: #fff;
     cursor: pointer;
 }
 
-header .logo{
+header .logo {
     flex: 1;
     color: #fff;
     margin-left: 100px;
@@ -66,20 +69,23 @@ header .logo{
 }
 
 header .logo a {
-    color: white; /* Change to desired color */
+    color: white;
+    /* Change to desired color */
     text-decoration: none;
 }
+
 header .logo a:visited {
-    color: white; /* Ensures the visited color doesn't change */
+    color: white;
+    /* Ensures the visited color doesn't change */
 }
 
-header .search-box{
+header .search-box {
     flex: 1;
     position: relative;
     margin-left: 50px;
 }
 
-header .search-box input{
+header .search-box input {
     width: 100%;
     padding: 10px 40px 10px 5px;
     border: none;
@@ -98,7 +104,7 @@ header .search-box input{
     opacity: 1;
 }
 
-.search-box button{
+.search-box button {
     cursor: pointer;
     width: 40px;
     height: 40px;
@@ -111,17 +117,17 @@ header .search-box input{
     background: #90be6d;
 }
 
-header ul{
-    flex:2;
+header ul {
+    flex: 2;
     display: flex;
     justify-content: flex-end;
 }
 
-header ul li{
+header ul li {
     list-style: none;
 }
 
-header ul li a{
+header ul li a {
     text-decoration: none;
     color: #fff;
     font-weight: 600;
@@ -129,11 +135,11 @@ header ul li a{
     padding: 10px 15px;
 }
 
-header ul li a:hover{
+header ul li a:hover {
     border-bottom: 2px solid green;
 }
 
-header .menu{
+header .menu {
     font-size: 2.5em;
     display: none;
 }
@@ -144,21 +150,22 @@ header .menu{
     background-color: #c9e3ac;
     position: fixed;
     top: 0;
-    left: -300px; /* Sidebar starts hidden */
+    left: -300px;
+    /* Sidebar starts hidden */
     transition: left 0.3s ease-in-out;
     padding-top: 100px;
 }
 
 .sidebar-active {
-    left: 0 ; /* Make sure it appears when active */
+    left: 0;
+    /* Make sure it appears when active */
 }
 
-.sidebar ul li
-{
+.sidebar ul li {
     list-style: none;
 }
 
-.sidebar ul li a{
+.sidebar ul li a {
     color: #37371f;
     text-decoration: none;
     font-size: 1.5em;
@@ -171,11 +178,11 @@ header .menu{
     padding-left: 20px;
 }
 
-.sidebar ul li a:hover{
+.sidebar ul li a:hover {
     color: #90be6d;
 }
 
-.sidebar h2{
+.sidebar h2 {
     font-size: 1.5em;
     font-weight: 800;
     text-align: center;
@@ -184,7 +191,8 @@ header .menu{
 }
 
 .toggle {
-    background: rgba(255, 255, 255, 0.15); /* Default dimmed */
+    background: rgba(255, 255, 255, 0.15);
+    /* Default dimmed */
     padding: 10px 15px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
@@ -193,10 +201,11 @@ header .menu{
 }
 
 .toggle-active {
-    background: rgba(255, 255, 255, 0.4); /* Brighter when sidebar is open */
+    background: rgba(255, 255, 255, 0.4);
+    /* Brighter when sidebar is open */
 }
 
-.toggle i{
+.toggle i {
     font-size: 24px;
     width: 16px;
     height: 24px;
@@ -232,7 +241,7 @@ footer {
 }
 
 .footer-container ul li {
-    display:block;
+    display: block;
 }
 
 .footer-container ul li a {
@@ -247,7 +256,10 @@ footer {
 
 .trending-box {
     width: 70%;
-    height: 500px;
+    height: auto;
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: auto;
     text-align: center;
     color: white;
     background-color: darkolivegreen;
@@ -258,6 +270,59 @@ footer {
     margin: 10px;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+
+.recipe-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.recipe-card {
+    width: 180px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-card-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.recipe-card-body {
+    padding: 10px;
+}
+
+.recipe-card-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recipe-card-title a {
+    color: #37371f;
+    text-decoration: none;
+}
+
+.recipe-card-title a:hover {
+    color: #90be6d;
+}
+
+.recipe-card-body p {
+    font-size: 14px;
+    margin: 0;
 }
 
 .login-box {
@@ -284,9 +349,9 @@ footer {
     background: transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255,255,255,.2);
+    border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 40px;
-    padding: 20px 45px 20px 20px ;
+    padding: 20px 45px 20px 20px;
 }
 
 .login-box .input-box input::placeholder {
@@ -295,7 +360,7 @@ footer {
 
 .login-box .input-box i {
     position: absolute;
-    right: 20px; 
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
@@ -344,20 +409,28 @@ footer {
 }
 
 .recipe-container ul.inline-list {
-    display: flex; /* Makes items appear in a row */
-    justify-content: space-between; /* Spreads items evenly */
+    display: flex;
+    /* Makes items appear in a row */
+    justify-content: space-between;
+    /* Spreads items evenly */
     padding: 0;
-    list-style: none; /* Removes bullets */
-    gap: 20px; /* Adds spacing between items */
+    list-style: none;
+    /* Removes bullets */
+    gap: 20px;
+    /* Adds spacing between items */
 }
 
 .recipe-container ul {
     margin-top: 10px;
-    display: flex; /* Makes items appear in a row */
-    justify-content: space-around; /* Spreads items evenly */
+    display: flex;
+    /* Makes items appear in a row */
+    justify-content: space-around;
+    /* Spreads items evenly */
     padding: 0;
-    list-style: none; /* Removes bullets */
-    gap: 20px; /* Adds spacing between items */
+    list-style: none;
+    /* Removes bullets */
+    gap: 20px;
+    /* Adds spacing between items */
     font-weight: bold;
 }
 
@@ -403,7 +476,7 @@ footer {
     gap: 20px;
 }
 
-.profile-header h1{
+.profile-header h1 {
     margin-bottom: 20px;
 }
 
@@ -413,8 +486,10 @@ footer {
     gap: 20px;
 }
 
-.profile-info, .profile-contact {
-    flex: 1; /* Both take equal width */
+.profile-info,
+.profile-contact {
+    flex: 1;
+    /* Both take equal width */
     background: white;
     padding: 20px;
     border-radius: 12px;
@@ -432,18 +507,24 @@ footer {
     margin-bottom: 30px;
 }
 
-input[type="text"], input[type="email"], textarea {
+input[type="text"],
+input[type="email"],
+textarea {
     width: 100%;
     padding: 12px;
-    border-radius: 20px; /* Makes inputs rounded */
+    border-radius: 20px;
+    /* Makes inputs rounded */
     border: 2px solid #ddd;
     background-color: #f8f8f8;
     outline: none;
     transition: 0.3s;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
-    border-color: #90be6d; /* Highlight when selected */
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #90be6d;
+    /* Highlight when selected */
     background-color: white;
 }
 
@@ -530,7 +611,7 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 
 /* Style the form fields */
 .custom-form p {
-    display:grid;
+    display: grid;
     flex-direction: column;
     gap: 5px;
 }
@@ -543,7 +624,8 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 }
 
 .custom-form p:has(textarea) textarea {
-    flex: 1; /* Make both equal width */
+    flex: 1;
+    /* Make both equal width */
     min-height: 150px;
     padding: 12px;
     border-radius: 10px;
@@ -588,13 +670,15 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 }
 
 .submitbtn {
-    background-color: #90be6d; /* Green color */
+    background-color: #90be6d;
+    /* Green color */
     color: white;
     font-size: 16px;
     font-weight: bold;
     padding: 12px 20px;
     border: none;
-    border-radius: 25px; /* Rounded edges */
+    border-radius: 25px;
+    /* Rounded edges */
     cursor: pointer;
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
     width: 50%;
@@ -613,7 +697,7 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
     transform: scale(0.95);
 }
 
-.about-container{
+.about-container {
     width: 80%;
     margin: auto;
     background-color: white;
@@ -625,16 +709,16 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
     text-align: center;
 }
 
-.about-container h1{
+.about-container h1 {
     margin-bottom: 20px;
 }
 
-.about-container p{
+.about-container p {
     font-size: large;
     line-height: 1.5;
 }
 
-.about-container img{
+.about-container img {
     margin-top: 20px;
     margin-bottom: 30px;
     width: 500px;
@@ -657,10 +741,11 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 
 .faq-container p b {
     font-size: 18px;
-    color: #333; /* Darker color for better visibility */
+    color: #333;
+    /* Darker color for better visibility */
 }
 
-.contact-container{
+.contact-container {
     width: 80%;
     margin: auto;
     background-color: white;
@@ -699,11 +784,12 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 /* Style the register page same as login */
 .login-box {
     width: 400px;
-    background-color: darkolivegreen; /* use solid background */
+    background-color: darkolivegreen;
+    /* use solid background */
     color: white;
     border-radius: 10px;
     padding: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin: 40px auto;
 }
 
@@ -741,7 +827,8 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 
 /* Ensure footer sticks to the bottom even on short pages */
 .main-container {
-    min-height: calc(100vh - 160px); /* Adjust based on header + footer height */
+    min-height: calc(100vh - 160px);
+    /* Adjust based on header + footer height */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

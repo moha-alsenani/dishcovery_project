@@ -10,21 +10,19 @@ Home
     <div class="container mt-4">
         <div class="trending-box">
             <h2>Trending Recipes</h2>
-            <div class="row">
+            <div class="recipe-cards-container">
                 {% for recipe in trending_recipes %}
-                <div class="col-md-4">
-                    <div class="card">
-                        {% if recipe.image %}
-                        <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
-                        {% else %}
-                        <img src="/static/images/no_image.png" class="card-img-top" alt="No Image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{% url 'dishcovery:recipe_details' recipe.id %}">{{ recipe.title }}</a>
-                            </h5>
-                            <p><strong>Rating:</strong> {{ recipe.avg_rating|floatformat:1 }}/10</p>
-                        </div>
+                <div class="recipe-card">
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" class="recipe-card-img" alt="{{ recipe.title }}">
+                    {% else %}
+                    <img src="/static/images/no_image.png" class="recipe-card-img" alt="No Image">
+                    {% endif %}
+                    <div class="recipe-card-body">
+                        <h5 class="recipe-card-title">
+                            <a href="{% url 'dishcovery:recipe_details' recipe.id %}">{{ recipe.title }}</a>
+                        </h5>
+                        <p><strong>Rating:</strong> {{ recipe.avg_rating|floatformat:1 }}/10</p>
                     </div>
                 </div>
                 {% empty %}
