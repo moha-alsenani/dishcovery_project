@@ -73,6 +73,7 @@ def register(request):
 @login_required
 def profile_page(request):
     user_recipes = Recipe.objects.filter(author=request.user)
+    show_edit_form = request.GET.get('edit_bio') == 'true'
 
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -84,7 +85,22 @@ def profile_page(request):
     else:
         form = RecipeForm()
 
-    return render(request, 'dishcovery_project/profile_page.html', {'form': form, 'user_recipes': user_recipes})
+    return render(request, 'dishcovery_project/profile_page.html', {
+        'form': form, 
+        'user_recipes': user_recipes,
+        'show_edit_form': show_edit_form
+    })
+
+@login_required
+def update_bio(request):
+    if request.method == 'POST':
+        new_bio = request.POST.get('bio')
+        if new_bio is not None:
+            # Get the user's profile and update the bio
+            profile = request.user.userprofile
+            profile.bio = new_bio
+            profile.save()
+    return redirect('dishcovery:profile_page')
 
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 // Alert message if wrong username and password is entered.
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
@@ -113,18 +114,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = data.redirect_url;
-                } else {
-                    alert(data.error);
-                }
-            })
-            .catch(error => {
-                console.error("Login error:", error);
-                alert("Something went wrong. Please try again.");
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect_url;
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Login error:", error);
+                    alert("Something went wrong. Please try again.");
+                });
         });
     }
 });

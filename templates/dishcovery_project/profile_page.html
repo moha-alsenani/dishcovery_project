@@ -15,15 +15,33 @@ Profile - {{ user.username }}
         <div class="profile-row">
             <div class="profile-info">
                 <h2>About Me</h2>
-                <p>Hi, I'm {{ user.username }}. {{ user.userprofile.bio|default:"Welcome to my profile!" }}</p>
+                <div id="bio-display" {% if show_edit_form %}style="display: none;" {% endif %}>
+                    <p>
+                        Hi, I'm {{ user.username }}.
+                        {{ user.userprofile.bio|default:"Welcome to my profile!" }}
+                    </p>
+                    <form method="GET" action="{% url 'dishcovery:profile_page' %}">
+                        <input type="hidden" name="edit_bio" value="true">
+                        <button type="submit" class="btn">Edit Bio</button>
+                    </form>
+                </div>
+
+                <div id="bio-edit" {% if not show_edit_form %}style="display: none;" {% endif %}>
+                    <form method="POST" action="{% url 'dishcovery:update_bio' %}">
+                        {% csrf_token %}
+                        <textarea name="bio" class="form-control" rows="4">{{ user.userprofile.bio }}</textarea>
+                        <button type="submit" class="submitbtn">Save</button>
+                        <a href="{% url 'dishcovery:profile_page' %}" class="btn">Cancel</a>
+                    </form>
+                </div>
             </div>
-    
+
             <div class="profile-contact">
                 <h2>Contact Info</h2>
                 <p>Email: {{ user.email }}</p>
             </div>
         </div>
-    
+
         <div class="profile-recipes">
             <h2>My Recipes</h2>
             {% if user_recipes %}
@@ -41,16 +59,14 @@ Profile - {{ user.username }}
             {% endif %}
         </div>
     </div>
-        <h3>Add a New Recipe</h3>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="custom-form">
-                {{ form.as_p }}
-                <button type="submit" class="submitbtn">Add Recipe</button>
-            </div>
-        </form>
-    </div>
+    <h3>Add a New Recipe</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="custom-form">
+            {{ form.as_p }}
+            <button type="submit" class="submitbtn">Add Recipe</button>
+        </div>
+    </form>
+</div>
 
-</div>
-</div>
 {% endblock %}
