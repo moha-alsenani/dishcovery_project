@@ -8,7 +8,28 @@ Profile - {{ user.username }}
 {% block body_block %}
 <div class="profile-container">
     <div class="profile-header">
-        <h1>{{ user.username }}'s Profile</h1>
+        <h1>My Profile - {{ user.username }}</h1>
+
+        <div class="profile-picture-container">
+            <div class="profile-picture centered-picture">
+                {% if user.userprofile.picture %}
+                <img src="{{ user.userprofile.picture.url }}" alt="{{ user.username }}'s profile picture">
+                {% else %}
+                <div class="no-profile-image">No Image</div>
+                {% endif %}
+                <div class="picture-upload-overlay">
+                    <form method="POST" action="{% url 'dishcovery:update_profile_picture' %}"
+                        enctype="multipart/form-data" id="profile-picture-form">
+                        {% csrf_token %}
+                        <label for="profile-picture-input" class="upload-icon">
+                            <i class="fa fa-camera"></i>
+                        </label>
+                        <input type="file" name="picture" id="profile-picture-input" style="display: none;"
+                            accept="image/*" onchange="this.form.submit()">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="profile-content">
@@ -45,15 +66,20 @@ Profile - {{ user.username }}
         <div class="profile-recipes">
             <h2>My Recipes</h2>
             {% if user_recipes %}
-            <ul>
+            <div class="recipe-grid">
                 {% for recipe in user_recipes %}
-                <li>
-                    <a href="{% url 'dishcovery:recipe_details' recipe.id %}">
-                        <strong>{{ recipe.title }}</strong> - {{ recipe.difficulty }}
-                    </a>
-                </li>
+                <div class="recipe-box">
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    {% else %}
+                    <div class="no-image">No Image</div>
+                    {% endif %}
+                    <h3><a href="{% url 'dishcovery:recipe_details' recipe.id %}">{{ recipe.title }}</a></h3>
+                    <p>{{ recipe.difficulty }} | {{ recipe.cuisine.name }}</p>
+                    <p>{{ recipe.meal_type }}</p>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
             {% else %}
             <p>You haven't added any recipes yet.</p>
             {% endif %}

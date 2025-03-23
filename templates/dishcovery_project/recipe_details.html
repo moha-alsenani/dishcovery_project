@@ -8,7 +8,7 @@
 {% block body_block %}
 <div class="recipe-container">
     <h1>{{ recipe.title }} - shared by <a
-            href="{% url 'dishcovery:user_profile' recipe.author.id %}">{{recipe.author.username }}</a></h1>
+            href="{% url 'dishcovery:other_user_profile' recipe.author.id %}">{{recipe.author.username }}</a></h1>
     {% if recipe.image %}
     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
     {% else %}

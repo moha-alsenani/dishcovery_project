@@ -92,6 +92,15 @@ def profile_page(request):
     })
 
 @login_required
+def update_profile_picture(request):
+    if request.method == 'POST' and 'picture' in request.FILES:
+        # Get the user's profile and update the picture
+        profile = request.user.userprofile
+        profile.picture = request.FILES['picture']
+        profile.save()
+    return redirect('dishcovery:profile_page')
+
+@login_required
 def update_bio(request):
     if request.method == 'POST':
         new_bio = request.POST.get('bio')
@@ -102,7 +111,7 @@ def update_bio(request):
             profile.save()
     return redirect('dishcovery:profile_page')
 
-def user_profile(request, user_id):
+def other_user_profile(request, user_id):
     profile_user = get_object_or_404(User, id=user_id)
     user_recipes = Recipe.objects.filter(author=profile_user)
     
@@ -111,7 +120,7 @@ def user_profile(request, user_id):
         'user_recipes': user_recipes,
     }
     
-    return render(request, 'dishcovery_project/user_profile.html', context)
+    return render(request, 'dishcovery_project/other_user_profile.html', context)
 
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

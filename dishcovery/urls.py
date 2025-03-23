@@ -20,5 +20,6 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('contact/', views.contact, name='contact'),
     path('update_bio/', views.update_bio, name='update_bio'),
-    path('user/<int:user_id>/', views.user_profile, name='user_profile'),
+    path('user/<int:user_id>/', views.other_user_profile, name='other_user_profile'),
+    path('update_profile_picture/', views.update_profile_picture, name='update_profile_picture'),
     ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
