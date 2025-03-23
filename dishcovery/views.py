@@ -31,7 +31,6 @@ def user_login(request):
     return render(request, 'dishcovery_project/login.html')
     
 def register(request):
-
     registered = False
 
     if request.method == 'POST':
@@ -50,6 +49,14 @@ def register(request):
 
             profile.save()
             registered = True
+            
+            # Automatically log in the user after registration
+            raw_password = user_form.cleaned_data.get('password')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            
+            # Redirect to home page
+            return redirect('dishcovery:home')
         else:
             print(user_form.errors, profile_form.errors)
 
@@ -58,10 +65,10 @@ def register(request):
         profile_form = UserProfileForm()
 
     return render(request, 'dishcovery_project/register.html', {
-    'user_form': user_form,
-    'profile_form': profile_form,
-    'registered': registered
-})
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'registered': registered
+    })
 
 @login_required
 def profile_page(request):
