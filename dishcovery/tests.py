@@ -97,7 +97,7 @@ class ViewTests(TestCase):
 
     def test_register_view(self):
         """Test user registration"""
-        response = self.client.post(reverse('dishcovery:register'), {
+        response = self.client.post(reverse('dishcovery:home'), {
             'username': 'new_user',
             'email': 'new_user@example.com',
             'password': 'test_pass123'
@@ -158,3 +158,122 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'dishcovery_project/cuisine_recipes.html')
 
+    def test_about_view(self):
+        """Test about page loads successfully"""
+        response = self.client.get(reverse('dishcovery:about'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dishcovery_project/about.html')
+
+    def test_contact_view(self):
+        """Test contact page loads successfully"""
+        response = self.client.get(reverse('dishcovery:contact'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dishcovery_project/contact.html')
+
+    def test_faq_view(self):
+        """Test FAQ page loads successfully"""
+        response = self.client.get(reverse('dishcovery:faq'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dishcovery_project/faq.html')
+
+    def test_add_recipe_authenticated(self):
+        """Test authenticated user can access add recipe page"""
+        self.client.login(username='test_user', password='password_123')
+        response = self.client.get(reverse('dishcovery:add_recipe'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dishcovery_project/add_recipe.html')
+
+    def test_add_recipe_unauthenticated(self):
+        """Test unauthenticated user is redirected from add recipe page"""
+        response = self.client.get(reverse('dishcovery:add_recipe'))
+        self.assertEqual(response.status_code, 302)  # Should redirect to login
+
+    def test_add_recipe_post(self):
+        """Test adding a new recipe"""
+        self.client.login(username='test_user', password='password_123')
+        recipe_data = {
+            'title': 'Test Recipe',
+            'ingredients': 'Test ingredients',
+            'instructions': 'Test instructions',
+            'difficulty': 'Easy',
+            'cuisine': self.cuisine.id,
+            'meal_type': 'Breakfast',
+            'diet': 'Vegetarian'
+        }
+        response = self.client.post(reverse('dishcovery:add_recipe'), recipe_data)
+        self.assertEqual(response.status_code, 302)  # Should redirect after posting
+        
+        # Check if recipe was created
+        recipe_exists = Recipe.objects.filter(title='Test Recipe').exists()
+        self.assertTrue(recipe_exists)
+
+    def test_other_user_profile_view(self):
+        """Test viewing another user's profile"""
+        response = self.client.get(reverse('dishcovery:other_user_profile', args=[self.user.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dishcovery_project/other_user_profile.html')
+
+    def test_add_comment_ajax(self):
+        """Test adding a comment via AJAX"""
+        self.client.login(username='test_user', password='password_123')
+        response = self.client.post(
+            reverse('dishcovery:add_comment_ajax', args=[self.recipe.id]),
+            {'text': 'Ajax comment test'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['status'], 'success')
+        
+        # Check if comment was created
+        comment_exists = Comment.objects.filter(recipe=self.recipe, text='Ajax comment test').exists()
+        self.assertTrue(comment_exists)
+
+    def test_add_comment_ajax_unauthenticated(self):
+        """Test adding a comment via AJAX while unauthenticated"""
+        response = self.client.post(
+            reverse('dishcovery:add_comment_ajax', args=[self.recipe.id]),
+            {'text': 'Unauthenticated comment'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 401)  # Unauthorized
+        self.assertEqual(response.json()['status'], 'error')
+
+    def test_user_login_ajax(self):
+        """Test login with AJAX request"""
+        response = self.client.post(
+            reverse('dishcovery:login'),
+            {'username': 'test_user', 'password': 'password_123'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_user_login_ajax_invalid(self):
+        """Test login with invalid credentials using AJAX"""
+        response = self.client.post(
+            reverse('dishcovery:login'),
+            {'username': 'wrong_user', 'password': 'wrong_password'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+
+    def test_register_post_success(self):
+        """Test successful user registration"""
+        user_data = {
+            'username': 'new_test_user',
+            'email': 'new_test@example.com',
+            'password': 'new_password123',
+        }
+        profile_data = {
+            'bio': 'Test bio',
+        }
+        # Combine the dictionaries
+        form_data = {**user_data, **profile_data}
+        
+        response = self.client.post(reverse('dishcovery:register'), form_data)
+        self.assertEqual(response.status_code, 302)  # Should redirect to home after successful registration
+        
+        # Check if user was created
+        user_exists = User.objects.filter(username='new_test_user').exists()
+        self.assertTrue(user_exists)
