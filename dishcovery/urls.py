@@ -20,4 +20,5 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('contact/', views.contact, name='contact'),
     path('update_bio/', views.update_bio, name='update_bio'),
+    path('user/<int:user_id>/', views.user_profile, name='user_profile'),
     ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

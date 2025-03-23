@@ -4,7 +4,7 @@ from dishcovery.forms import UserForm, UserProfileForm, RecipeForm, CommentForm,
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from dishcovery.models import Recipe, Cuisine, Comment, Rating
+from dishcovery.models import Recipe, Cuisine, Comment, Rating, User
 from django.db.models import Avg
 from django.http import JsonResponse
 from django.utils.timezone import now
@@ -101,6 +101,17 @@ def update_bio(request):
             profile.bio = new_bio
             profile.save()
     return redirect('dishcovery:profile_page')
+
+def user_profile(request, user_id):
+    profile_user = get_object_or_404(User, id=user_id)
+    user_recipes = Recipe.objects.filter(author=profile_user)
+    
+    context = {
+        'profile_user': profile_user,
+        'user_recipes': user_recipes,
+    }
+    
+    return render(request, 'dishcovery_project/user_profile.html', context)
 
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
