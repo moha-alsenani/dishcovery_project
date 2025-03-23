@@ -92,6 +92,20 @@ def profile_page(request):
     })
 
 @login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user
+            recipe.save()
+            return redirect('dishcovery:profile_page')
+    else:
+        form = RecipeForm()
+
+    return render(request, 'dishcovery_project/add_recipe.html', {'form': form})
+
+@login_required
 def update_profile_picture(request):
     if request.method == 'POST' and 'picture' in request.FILES:
         # Get the user's profile and update the picture

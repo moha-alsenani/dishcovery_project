@@ -1,0 +1,19 @@
+{% extends 'dishcovery_project/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Add a new recipe
+{% endblock %}
+
+{% block body_block %}
+<div class="profile-container">
+<h1>Add a New Recipe for {{ user.username }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="custom-form">
+            {{ form.as_p }}
+            <button type="submit" class="submitbtn">Add Recipe</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

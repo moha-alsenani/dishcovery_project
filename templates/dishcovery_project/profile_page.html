@@ -85,14 +85,7 @@ Profile - {{ user.username }}
             {% endif %}
         </div>
     </div>
-    <h3>Add a New Recipe</h3>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="custom-form">
-            {{ form.as_p }}
-            <button type="submit" class="submitbtn">Add Recipe</button>
-        </div>
-    </form>
+    
 </div>
 
 {% endblock %}

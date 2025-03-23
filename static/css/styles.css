@@ -22,6 +22,8 @@ body {
     background-image: url('/static/images/extended_image.png');
 }
 
+/* Header styling */
+
 header {
     width: 100%;
     min-height: 100px;
@@ -31,34 +33,6 @@ header {
     position: relative;
     z-index: 99;
     background-color: #37371f;
-}
-
-.page-content {
-    min-height: 100%;
-    padding-bottom: 120px;
-    /* Same or slightly more than footer height */
-    box-sizing: border-box;
-}
-
-.main-container {
-    min-height: calc(100vh - 100px);
-    /* 100px = footer height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.main-content {
-    flex: 1;
-    min-height: calc(100vh - 200px);
-    display: flex;
-    flex-direction: column;
-}
-
-i {
-    color: #fff;
-    cursor: pointer;
 }
 
 header .logo {
@@ -99,24 +73,6 @@ header .search-box input {
     z-index: 1500;
 }
 
-.search-box input::placeholder {
-    color: rgb(126, 126, 126);
-    opacity: 1;
-}
-
-.search-box button {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
-    border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: scale(0.8);
-    background: #90be6d;
-}
-
 header ul {
     flex: 2;
     display: flex;
@@ -143,6 +99,58 @@ header .menu {
     font-size: 2.5em;
     display: none;
 }
+
+/* Page specification */
+
+.page-content {
+    min-height: 100%;
+    padding-bottom: 120px;
+    /* Same or slightly more than footer height */
+    box-sizing: border-box;
+}
+
+.main-container {
+    min-height: calc(100vh - 100px);
+    /* 100px = footer height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+i {
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Search box styling */
+
+.search-box input::placeholder {
+    color: rgb(126, 126, 126);
+    opacity: 1;
+}
+
+.search-box button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: scale(0.8);
+    background: #90be6d;
+}
+
+/* Sidebar styling */
 
 .sidebar {
     width: 300px;
@@ -190,6 +198,8 @@ header .menu {
     pointer-events: none;
 }
 
+/* Sidebar toggle button styling */
+
 .toggle {
     background: rgba(255, 255, 255, 0.15);
     /* Default dimmed */
@@ -221,6 +231,8 @@ label input[type="checkbox"] {
     visibility: hidden;
     appearance: none;
 }
+
+/* Footer styling */
 
 footer {
     width: 100%;
@@ -259,6 +271,8 @@ footer {
 .footer-container ul li a:hover {
     text-decoration: underline;
 }
+
+/* Trending box on homepage styling */
 
 .trending-box {
     width: 70%;
@@ -332,6 +346,8 @@ footer {
     margin: 0;
 }
 
+/* Login + register page styling */
+
 .login-box {
     width: 50%;
     text-align: center;
@@ -387,6 +403,27 @@ footer {
     margin-bottom: 20px;
 }
 
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+    /* Makes inputs rounded */
+    border: 2px solid #ddd;
+    background-color: #f8f8f8;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #90be6d;
+    /* Highlight when selected */
+    background-color: white;
+}
+
 .wrapper .register-link {
     font-size: 14.5px;
     text-align: center;
@@ -403,6 +440,8 @@ footer {
 .register-link p a:hover {
     text-decoration: underline;
 }
+
+/* Recipe page styling */
 
 .recipe-container {
     width: 80%;
@@ -468,96 +507,6 @@ footer {
     border-radius: 5px;
 }
 
-.profile-container {
-    width: 80%;
-    margin: auto;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header h1 {
-    text-align: center;
-}
-
-.profile-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.profile-header h1 {
-    margin-bottom: 20px;
-}
-
-.profile-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.profile-info,
-.profile-contact {
-    flex: 1;
-    /* Both take equal width */
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.profile-recipes {
-    margin-top: 20px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 20px;
-    /* Makes inputs rounded */
-    border: 2px solid #ddd;
-    background-color: #f8f8f8;
-    outline: none;
-    transition: 0.3s;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-    border-color: #90be6d;
-    /* Highlight when selected */
-    background-color: white;
-}
-
-.card {
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.card img {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.card-body {
-    text-align: center;
-}
-
 .recipes-container {
     width: 80%;
     margin: auto;
@@ -602,6 +551,149 @@ textarea:focus {
 .recipe-box p {
     font-size: 14px;
     color: #666;
+}
+
+/* Profile page styling */
+
+.profile-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    text-align: center;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-header h1 {
+    margin-bottom: 20px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.profile-info,
+.profile-contact {
+    flex: 1;
+    /* Both take equal width */
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Profile picture container */
+.profile-picture-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Centered profile picture */
+.centered-picture {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #90be6d;
+    position: relative;
+}
+
+.centered-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-profile-image {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Upload button styling */
+.picture-upload-overlay {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(144, 190, 109, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.picture-upload-overlay:hover {
+    background-color: rgba(107, 142, 35, 0.9);
+}
+
+.profile-recipes {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    text-align: center;
 }
 
 .back-link {
@@ -907,7 +999,6 @@ textarea:focus {
     font-size: 14px;
 }
 
-
 /* user profile styling */
 .profile-picture {
     margin: 20px auto;
@@ -978,73 +1069,6 @@ textarea:focus {
     color: #90be6d;
 }
 
-/* Profile header styling */
-.profile-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.profile-header h1 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Profile picture container */
-.profile-picture-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-/* Centered profile picture */
-.centered-picture {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #90be6d;
-    position: relative;
-}
-
-.centered-picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.no-profile-image {
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 14px;
-}
-
-/* Upload button styling */
-.picture-upload-overlay {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background-color: rgba(144, 190, 109, 0.9);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.picture-upload-overlay:hover {
-    background-color: rgba(107, 142, 35, 0.9);
-}
 
 .upload-icon {
     cursor: pointer;
