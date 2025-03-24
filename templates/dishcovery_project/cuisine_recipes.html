@@ -24,9 +24,12 @@ Recipes - {{ cuisine.name }}
         </div>
         {% endfor %}
     </div>
-    {% else %}
+    {% elif user.is_authenticated %}
     <p>No recipes found for this cuisine. Would you like to <a href="{% url 'dishcovery:add_recipe' %}"
             class="add-recipe-link">add the first recipe</a>?</p>
+    {% else %}
+    <p>No recipes found for this cuisine. <a href="{% url 'dishcovery:login' %}" class="add-recipe-link">Login</a>
+        to add the first recipe!</p>
     {% endif %}
 
     <a href="{% url 'dishcovery:home' %}" class="back-link">Back to Home</a>
