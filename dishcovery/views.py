@@ -83,6 +83,7 @@ def search_view(request):
             Q(meal_type__icontains=query) |
             Q(diet__icontains=query) |
             Q(cuisine__name__icontains=query)
+        
         )
 
     return render(request, 'dishcovery_project/search_results.html', {  # Corrected template path
