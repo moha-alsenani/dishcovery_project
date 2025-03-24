@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# User profile page model, takes in username, profile pic, bio
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -11,13 +12,14 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-    
+# cuisines (different types)
 class Cuisine(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
+# Recipe model, consists of different fields shown below
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,6 +35,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
+# Comments on a recipe
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who made the comment
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='comments')  # Recipe being commented on
@@ -42,12 +45,11 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.user.username} on {self.recipe.title}"
 
-
-    
+# Rating on a recipe
 class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ratings')
-    score = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 11)])  # Updated to 1-10 scale
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # User's rating
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ratings') # Recipe being rated
+    score = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 11)])  # Rating on 1-10 scale
 
     def __str__(self):
         return f"{self.score}/10 by {self.user.username}"

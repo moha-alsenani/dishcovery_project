@@ -23,6 +23,12 @@
                     <li>Welcome</li>
                 {% endif %}
             </div>
+            {% if user.is_authenticated %}
+            <li>Welcome, {{ user.username }}</li>
+            {% else %}
+            <li>Welcome</li>
+            {% endif %}
+
         </div>
         
         <div class="search-box">
