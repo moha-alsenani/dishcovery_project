@@ -76,12 +76,18 @@ def search_view(request):
 
     if query:
         results = Recipe.objects.filter(
-            Q(title__icontains=query) | Q(description__icontains=query)
+            Q(title__icontains=query) |
+            Q(ingredients__icontains=query) |
+            Q(instructions__icontains=query) |
+            Q(difficulty__icontains=query) |
+            Q(meal_type__icontains=query) |
+            Q(diet__icontains=query) |
+            Q(cuisine__name__icontains=query)
         )
 
-    return render(request, 'dishcovery/search_results.html', {
+    return render(request, 'dishcovery_project/search_results.html', {  # Corrected template path
         'query': query,
-        'results': results
+        'recipes': results
     })
 
 @login_required
@@ -257,4 +263,4 @@ def faq(request):
     return render(request,'dishcovery_project/faq.html' )
 
 
-   
+
