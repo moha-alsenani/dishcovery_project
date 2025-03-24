@@ -42,3 +42,6 @@ class RatingForm(forms.ModelForm):
         widgets = {
             'score': forms.Select(choices=[(i, i) for i in range(1, 11)], attrs={'class': 'form-control'}),
         }
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100, required=False)

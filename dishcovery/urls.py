@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     path('logout/', auth_views.LogoutView.as_view(next_page='dishcovery:home'), name='logout'),
+    path('search/', views.search_view, name='search'),
     path('profile_page/', views.profile_page, name='profile_page'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('recipe/<int:recipe_id>/', views.recipe_details, name='recipe_details'),
