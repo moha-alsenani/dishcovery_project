@@ -71,6 +71,31 @@ def register(request):
     })
 
 @login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user
+            
+            # Handle the cuisine - either find an existing one or create a new one
+            cuisine_name = form.cleaned_data['cuisine_name']
+            cuisine, created = Cuisine.objects.get_or_create(name=cuisine_name)
+            recipe.cuisine = cuisine
+            
+            recipe.save()
+            return redirect('dishcovery:profile_page')
+    else:
+        form = RecipeForm()
+
+    return render(request, 'dishcovery_project/add_recipe.html', {'form': form})
+
+# context processor function to make cuisines available to all templates
+def cuisines_processor(request):
+    cuisines = Cuisine.objects.all()
+    return {'cuisines': cuisines}
+
+@login_required
 def profile_page(request):
     user_recipes = Recipe.objects.filter(author=request.user)
     show_edit_form = request.GET.get('edit_bio') == 'true'
@@ -79,9 +104,15 @@ def profile_page(request):
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
-            recipe.author = request.user  
+            recipe.author = request.user
+            
+            # Handling the cuisine
+            cuisine_name = form.cleaned_data['cuisine_name']
+            cuisine, created = Cuisine.objects.get_or_create(name=cuisine_name)
+            recipe.cuisine = cuisine
+            
             recipe.save()
-            return redirect('dishcovery:profile_page')  
+            return redirect('dishcovery:profile_page')
     else:
         form = RecipeForm()
 
@@ -90,20 +121,6 @@ def profile_page(request):
         'user_recipes': user_recipes,
         'show_edit_form': show_edit_form
     })
-
-@login_required
-def add_recipe(request):
-    if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            recipe = form.save(commit=False)
-            recipe.author = request.user
-            recipe.save()
-            return redirect('dishcovery:profile_page')
-    else:
-        form = RecipeForm()
-
-    return render(request, 'dishcovery_project/add_recipe.html', {'form': form})
 
 @login_required
 def update_profile_picture(request):

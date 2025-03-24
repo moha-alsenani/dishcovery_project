@@ -196,11 +196,11 @@ class ViewTests(TestCase):
             'ingredients': 'Test ingredients',
             'instructions': 'Test instructions',
             'difficulty': 'Easy',
-            'cuisine': self.cuisine.id,
+            'cuisine_name': self.cuisine.id,
             'meal_type': 'Breakfast',
             'diet': 'Vegetarian'
         }
-        response = self.client.post(reverse('dishcovery:add_recipe'), recipe_data)
+        response = self.client.post(reverse('dishcovery:profile_page'), recipe_data)
         self.assertEqual(response.status_code, 302)  # Should redirect after posting
         
         # Check if recipe was created

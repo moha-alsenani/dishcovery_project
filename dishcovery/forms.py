@@ -17,9 +17,11 @@ class UserProfileForm(forms.ModelForm):
         fields = ('bio', 'picture',)
 
 class RecipeForm(forms.ModelForm):
+    cuisine_name = forms.CharField(max_length=100, required=True, help_text="Enter the cuisine...")
+    
     class Meta:
         model = Recipe
-        fields = ['title', 'ingredients', 'instructions', 'difficulty', 'cuisine', 'meal_type', 'diet', 'image']
+        fields = ['title', 'ingredients', 'instructions', 'difficulty', 'meal_type', 'diet', 'image']        
 
 class CommentForm(forms.ModelForm):
     class Meta:

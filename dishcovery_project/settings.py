@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'dishcovery.context_processors.cuisine_context',
+                'dishcovery.views.cuisines_processor',
             ],
         },
     },
