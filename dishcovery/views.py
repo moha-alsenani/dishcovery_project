@@ -11,10 +11,12 @@ from django.utils.timezone import now
 
 # Create your views here.
 
+# home page view 
 def home(request):
     trending_recipes = Recipe.objects.annotate(avg_rating=Avg('ratings__score')).order_by('-avg_rating')[:4]  # Get top recipes by rating
     return render(request, 'dishcovery_project/home.html', {'trending_recipes': trending_recipes})
 
+# Login page view 
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -30,6 +32,7 @@ def user_login(request):
 
     return render(request, 'dishcovery_project/login.html')
     
+# Register Page view
 def register(request):
     registered = False
 
@@ -70,6 +73,7 @@ def register(request):
         'registered': registered
     })
 
+# Recipe addition page
 @login_required
 def add_recipe(request):
     if request.method == 'POST':
@@ -95,6 +99,7 @@ def cuisines_processor(request):
     cuisines = Cuisine.objects.all()
     return {'cuisines': cuisines}
 
+# Profile page 
 @login_required
 def profile_page(request):
     user_recipes = Recipe.objects.filter(author=request.user)
@@ -106,7 +111,7 @@ def profile_page(request):
             recipe = form.save(commit=False)
             recipe.author = request.user
             
-            # Handling the cuisine
+            # Handling the cuisines
             cuisine_name = form.cleaned_data['cuisine_name']
             cuisine, created = Cuisine.objects.get_or_create(name=cuisine_name)
             recipe.cuisine = cuisine
@@ -122,6 +127,7 @@ def profile_page(request):
         'show_edit_form': show_edit_form
     })
 
+# adding/changing profile pic view
 @login_required
 def update_profile_picture(request):
     if request.method == 'POST' and 'picture' in request.FILES:
@@ -131,6 +137,7 @@ def update_profile_picture(request):
         profile.save()
     return redirect('dishcovery:profile_page')
 
+# adding/changing bio
 @login_required
 def update_bio(request):
     if request.method == 'POST':
@@ -142,6 +149,7 @@ def update_bio(request):
             profile.save()
     return redirect('dishcovery:profile_page')
 
+# how you see other users
 def other_user_profile(request, user_id):
     profile_user = get_object_or_404(User, id=user_id)
     user_recipes = Recipe.objects.filter(author=profile_user)
@@ -153,6 +161,7 @@ def other_user_profile(request, user_id):
     
     return render(request, 'dishcovery_project/other_user_profile.html', context)
 
+# recipe page where you see it's details, comments and rating
 def recipe_details(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')
@@ -226,19 +235,22 @@ def add_comment_ajax(request, recipe_id):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
-
+# the page where you see all recipes for a specific cuisine
 def cuisine_recipes(request, cuisine_id):
-    cuisine = get_object_or_404(Cuisine, id=cuisine_id)  # Get the cuisine or return 404
-    recipes = Recipe.objects.filter(cuisine=cuisine)  # Get recipes for the selected cuisine
+    cuisine = get_object_or_404(Cuisine, id=cuisine_id)  
+    recipes = Recipe.objects.filter(cuisine=cuisine)  
     
     return render(request, 'dishcovery_project/cuisine_recipes.html', {'cuisine': cuisine, 'recipes': recipes})
 
+# about us page
 def about(request):
     return render(request,'dishcovery_project/about.html')
 
+# contact us page
 def contact(request):
     return render(request,'dishcovery_project/contact.html')
 
+# FAQ page
 def faq(request):
     return render(request,'dishcovery_project/faq.html' )
 

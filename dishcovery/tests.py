@@ -65,7 +65,6 @@ class ModelTests(TestCase):
 
 
 # Testing the views (not all views are included)
-
 class ViewTests(TestCase):
 
     def setUp(self):
