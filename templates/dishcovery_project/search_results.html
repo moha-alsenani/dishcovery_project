@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+    {% if query %}
+        <h2>Search Results for "{{ query }}"</h2>
+    {% else %}
+        <h2>Please enter a search query.</h2>
+    {% endif %}
+    
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <li><a href="{% url 'dishcovery:recipe_detail' recipe.id %}">{{ recipe.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        {% if query %}
+            <p>No recipes found for "{{ query }}".</p>
+        {% else %}
+            <p>Please enter a search query above.</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -13,31 +13,32 @@
 
 <body>
     <header>
-        <div class="toggle"><i class="fa fa-bars"></i></div>
+        <div class="toggle"><i class="fa fa-bars" aria-label="Toggle sidebar"></i></div>
         <div class="logo">
-            <h1><a href="{% url 'dishcovery:home' %}" style="text-decoration: none">Dishcovery</h1>
-            {% if user.is_authenticated %}
-            <li>Welcome, {{ user.username }}</li>
-            {% else %}
-            <li>Welcome</li>
-            {% endif %}
-
+            <h1><a href="{% url 'dishcovery:home' %}" style="text-decoration: none">Dishcovery</a></h1>
+            <div class="welcome-message">
+                {% if user.is_authenticated %}
+                    <li>Welcome, {{ user.username }}</li>
+                {% else %}
+                    <li>Welcome</li>
+                {% endif %}
+            </div>
         </div>
+        
         <div class="search-box">
-            <form action="" method="GET">
-                <input type="text" name="query" id="search" placeholder="Search">
+            <form method="get" action="{% url 'dishcovery:search' %}">
+                <input type="text" name="query" id="search" placeholder="Search" value="{{ request.GET.query }}" aria-label="Search for recipes">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
+       
         <ul>
             {% if user.is_authenticated %}
-            <!-- Show these links when the user is logged in -->
-            <li><a href="{% url 'dishcovery:add_recipe' %}"> + recipe</a></li>
-            <li><a href="{% url 'dishcovery:profile_page' %}">My Profile</a></li>
-            <li><a href="{% url 'dishcovery:logout' %}">Logout</a></li>
+                <li><a href="{% url 'dishcovery:add_recipe' %}">+ recipe</a></li>
+                <li><a href="{% url 'dishcovery:profile_page' %}">My Profile</a></li>
+                <li><a href="{% url 'dishcovery:logout' %}">Logout</a></li>
             {% else %}
-            <!-- Show these links when the user is NOT logged in -->
-            <li><a href="{% url 'dishcovery:login' %}">Login</a></li>
+                <li><a href="{% url 'dishcovery:login' %}">Login</a></li>
             {% endif %}
         </ul>
         <div class="menu">
@@ -47,21 +48,16 @@
         </div>
     </header>
 
-
-    <label>
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>CUISINES</h2>
-            <ul>
-                {% for cuisine in cuisines %}
+    <div class="sidebar">
+        <h2>CUISINES</h2>
+        <ul>
+            {% for cuisine in cuisines %}
                 <li><a href="{% url 'dishcovery:cuisine_recipes' cuisine.id %}">{{ cuisine.name }}</a></li>
-                {% empty %}
+            {% empty %}
                 <li>No cuisines available</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-    </label>
+            {% endfor %}
+        </ul>
+    </div>
 
     <div class="main-container">
         {% block body_block %}
@@ -78,9 +74,8 @@
             <p> &copy; 2025 Dishcovery Ltd. (Boyd Orr Building / Lab 706), Glasgow University, Glasgow </p>
         </div>
     </footer>
+
     <script src="{% static 'js/script.js' %}"></script>
 </body>
-
-
 
 </html>

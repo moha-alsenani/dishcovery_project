@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from dishcovery.models import Recipe, Cuisine, Comment, Rating, User
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.http import JsonResponse
 from django.utils.timezone import now
 
@@ -68,6 +68,20 @@ def register(request):
         'user_form': user_form,
         'profile_form': profile_form,
         'registered': registered
+    })
+
+def search_view(request):
+    query = request.GET.get('query', '')
+    results = []
+
+    if query:
+        results = Recipe.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    return render(request, 'dishcovery/search_results.html', {
+        'query': query,
+        'results': results
     })
 
 @login_required
